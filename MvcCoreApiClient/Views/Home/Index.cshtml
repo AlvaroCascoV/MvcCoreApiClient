@@ -2,7 +2,48 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#btnpersonas').click(function () {
+                let url = 'https://apipersonasacv-emc8egegccbec0at.swedencentral-01.azurewebsites.net/';
+                let request = 'api/personas';
+                $.ajax({
+                    url: url + request,
+                    method: 'GET',
+                    success: function (data) {
+                        console.log("Todo funciona!!");
+
+                        var html = "";
+                        $.each(data, function (index, persona) {
+                            html += "<tr>" +
+                                "<td>" + persona.idPersona + "</td>" +
+                                "<td>" + persona.nombre + "</td>" +
+                                "<td>" + persona.email + "</td>" +
+                                "<td>" + persona.edad + "</td>" +
+                                "</tr>";
+                        });
+                        $("#tablapersonas tbody").html(html);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Api Personas Client</h1>
+    <button id="btnpersonas" class="btn btn-success">Load Personas</button>
+    <table id="tablapersonas" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
 </div>
