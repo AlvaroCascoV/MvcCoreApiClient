@@ -1,0 +1,36 @@
+﻿@model List<Hospital>
+
+<h1>Hospitales Api Servidor</h1>
+
+@if (Model != null)
+{
+    <table class="table table-warning">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Camas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hospital in Model)
+            {
+                <tr>
+                    <td>@hospital.IdHospital</td>
+                    <td>@hospital.Nombre</td>
+                    <td>@hospital.Direccion</td>
+                    <td>@hospital.Telefono</td>
+                    <td>@hospital.Camas</td>
+                    <td><a asp-action="Detalles" asp-controller="Hospitales" asp-route-idhospital="@hospital.IdHospital" class="btn btn-info">Detalles</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2 style="color:red">No hay datos disponibles</h2>
+}
