@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#btnhospitales').click(function () {
+                let url = 'https://apicorehospitalesacv.azurewebsites.net/';
+                let request = 'api/hospitales';
+                $.ajax({
+                    url: url + request,
+                    method: 'GET',
+                    success: function (data) {
+                        console.log("Todo funciona!!");
+
+                        var html = "";
+                        $.each(data, function (index, hospital) {
+                            html += "<tr>" +
+                                "<td>" + hospital.idHospital + "</td>" +
+                                "<td>" + hospital.nombre + "</td>" +
+                                "<td>" + hospital.direccion + "</td>" +
+                                "<td>" + hospital.telefono + "</td>" +
+                                "<td>" + hospital.camas + "</td>" +
+                                "</tr>";
+                        });
+                        $("#tablahospitales tbody").html(html);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Api Hospitales Client</h1>
+    <button id="btnhospitales" class="btn btn-primary">Load Hospitales</button>
+    <table id="tablahospitales" class="table table-success">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Camas</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>
